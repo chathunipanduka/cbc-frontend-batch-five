@@ -1,10 +1,52 @@
+import axios from 'axios'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
+
+
 export default function LoginPage() {
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  async function handleLogin() {
+    // Handle login logic here
+    console.log('Email:', email)
+    console.log('Password:', password)
+    try{
+      const response= await axios.post('http://localhost:3000/users/login', {
+        email: email,
+        password: password
+      
+      })
+      toast.success('Login successful')
+    }catch(e){
+      toast.error(e.response.data.message)
+    }
+  }
+
+
   return (
-    <div className="bg-red-200 h-screen flex flex-col items-center justify-center">
-      <h1 className="font-bold text-[30px] text-amber-700">Crystal Beauty Clear</h1>
-      <p>lerom ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt est et lobortis interdum. Phasellus blandit ipsum id metus varius laoreet. Quisque egestas diam in arcu cursus euismod.</p>
-      <button className="bg-amber-700 text-white font-bold py-2 px-4 rounded">Login</button>
+    <div className="w-full h-screen bg-[url('/login.jpg')] bg-center bg-cover flex justify-evenly items-center ">
+      <div className="w-[50%] h-full">
+
+      </div>
+      <div className="w-[50%] h-full flex  justify-center items-center">
+        <div className="w-[500px] h-[600px] backdrop-blur-md rounded-[20px] shadow-2xl flex flex-col justify-center items-center">
+          <input onChange={(e)=>{
+            setEmail(e.target.value)
+          }} 
+          value={email}
+          className="w-[300px] h-[50px] border border-[#c3efe9] rounded-[20px] my-[20px]" />
+          <input onChange={(e)=>{
+            setPassword(e.target.value)
+          }} 
+          value={password} type="password" className="w-[300px] h-[50px] border border-[#c3efe9] rounded-[20px] mb-[20px]" />
+          <button onClick={handleLogin} className="w-[300px] h-[50px] cursor-pointer bg-[#c3efe9] rounded-[20px] text-white text-[20px] font-bold my-[20px]">Login</button>
+        </div>
+
+      </div>
     </div>
   )
 }
+
 
