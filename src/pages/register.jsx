@@ -21,14 +21,14 @@ export default function RegisterPage() {
     }else{
   
     try {
-      const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/users/", {
+      await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/users/", {
         firstName,
         lastName,
         email,
         password,
       });
   
-      console.log("Registration response:", response);
+      
       toast.success("Registration successful");
       navigate("/login");
     } catch (e) {
@@ -73,6 +73,7 @@ export default function RegisterPage() {
           />
           
           <button
+          type="button"
             onClick={handleRegister}
             className="w-[300px] h-[50px] cursor-pointer bg-[#c3efe9] rounded-[20px] text-white text-[20px] font-bold my-[20px]" > 
             Register
